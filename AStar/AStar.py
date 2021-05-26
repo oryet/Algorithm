@@ -55,8 +55,8 @@ class AStar:
         # 当前处理的节点
         self.currentNode = startNode
         # 最后生成的路径
-        self.pathlist = [];
-        return;
+        self.pathlist = []
+        return
 
     def getMinFNode(self):
         """
@@ -118,7 +118,7 @@ class AStar:
         if self.nodeInOpenlist(node) == False:
             node.setG(gTemp)
             # H值计算
-            node.manhattan(self.endNode);
+            node.manhattan(self.endNode)
             self.openList.append(node)
             node.father = self.currentNode
         # 如果在openList中，判断currentNode到当前点的G是否更小
@@ -128,7 +128,7 @@ class AStar:
             if self.currentNode.g + gTemp < nodeTmp.g:
                 nodeTmp.g = self.currentNode.g + gTemp
                 nodeTmp.father = self.currentNode
-        return;
+        return
 
     def searchNear(self):
         """
@@ -161,15 +161,15 @@ class AStar:
         if self.map2d.isPass(Point(self.currentNode.point.x + 1, self.currentNode.point.y)) and \
                 self.map2d.isPass(Point(self.currentNode.point.x, self.currentNode.point.y + 1)):
             self.searchOneNode(Node(Point(self.currentNode.point.x + 1, self.currentNode.point.y + 1)))
-        return;
+        return
 
     def start(self):
         '''''
         开始寻路
         '''
         # 将初始节点加入开放列表
-        self.startNode.manhattan(self.endNode);
-        self.startNode.setG(0);
+        self.startNode.manhattan(self.endNode)
+        self.startNode.setG(0)
         self.openList.append(self.startNode)
 
         while True:
@@ -179,20 +179,19 @@ class AStar:
             self.closeList.append(self.currentNode)
             self.openList.remove(self.currentNode)
 
-            self.searchNear();
+            self.searchNear()
 
             # 检验是否结束
             if self.endNodeInOpenList():
                 nodeTmp = self.getNodeFromOpenList(self.endNode)
                 while True:
-                    self.pathlist.append(nodeTmp);
+                    self.pathlist.append(nodeTmp)
                     if nodeTmp.father != None:
                         nodeTmp = nodeTmp.father
                     else:
-                        return True;
+                        return True
             elif len(self.openList) == 0:
-                return False;
-        return True;
+                return False
 
     def setMap(self):
         for node in self.pathlist:
